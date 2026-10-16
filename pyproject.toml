@@ -1,0 +1,39 @@
+[project]
+name = "ai-edge-computing"
+version = "0.2.0"
+description = "Hands-on course: quantization, pruning and knowledge distillation of a gesture-recognition network, deployed on an Arduino Nano 33 BLE Sense."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "torch>=2.3",
+    "numpy>=1.26",
+    "matplotlib>=3.8",
+    "jupyterlab>=4.0",
+    "ipykernel>=6.29",
+    # Only needed to record your own gestures / read predictions over USB serial.
+    "pyserial>=3.5",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv]
+# A course repository, not an installable library: uv installs the
+# dependencies but does NOT build/install the project itself. The notebooks
+# import the local `aiedge/` package by adding the repo root to sys.path.
+package = false
+
+# The models in this course are tiny, so a GPU brings nothing. Pull the
+# CPU-only PyTorch wheels on Linux/Windows (~200 MB instead of several GB of
+# CUDA libraries). macOS wheels on PyPI are CPU-only already.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu", marker = "sys_platform != 'darwin'" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
