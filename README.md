@@ -56,7 +56,7 @@ record their own gestures with `arduino/gesture_capture` (notebook 01, section
 ```
 notebooks/                 the course (00 ... 05)
 solutions/                 worked solutions to all exercises (for instructors)
-aiedge/                    small helper package used by the notebooks
+aiedge/                    last-resort helpers; the notebooks show all other code inline
   config.py                constants shared with the Arduino code (rate, window, gestures, trigger)
   data.py                  gesture simulator, loader for recordings, splits + normalization
   models.py                MLP (student/baseline) and ConvNet (teacher), size/MAC counters
@@ -64,7 +64,7 @@ aiedge/                    small helper package used by the notebooks
   pruning.py               edge pruning (masks) and node pruning (importance + surgery)
   quantization.py          fake quantization, QuantMLP (PTQ/QAT), int8 export, integer inference
   export.py                MCU cost model, model_data.h generator, host-compiler check
-  plots.py, board.py       plotting; serial-port helpers (record gestures, show predictions)
+  board.py                 serial-port helpers (record gestures, show predictions)
 arduino/
   gesture_capture/         sketch: record gesture windows as CSV over USB
   gesture_classifier/      sketch: on-device inference (edge_nn.h + generated model_data.h)
