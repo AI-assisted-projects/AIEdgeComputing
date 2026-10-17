@@ -3,14 +3,14 @@
 Status: active
 <!-- The runner reads this line: planning | active | blocked | done -->
 Blocked reason: -
-Current milestone: M1
+Current milestone: M2
 
 ## Tasks
 
 ### M1 — Baseline and safety net
-- [ ] Write `tools/run_notebook.py` (headless fresh-kernel run, fails on error, guards board-only cells). Check that `jupyter`/`nbclient` is available in the dev environment.
-- [ ] Run every notebook and the solutions notebook through it. Fix only environment problems, not content. Record key numbers and runtimes in `tools/baseline.md`.
-- [ ] Run `uv run --group dev pytest` and note the result in the baseline. Open the M1 PR.
+- [x] Write `tools/run_notebook.py` (headless fresh-kernel run, fails on error, guards board-only cells). Check that `jupyter`/`nbclient` is available in the dev environment.
+- [x] Run every notebook and the solutions notebook through it. Fix only environment problems, not content. Record key numbers and runtimes in `tools/baseline.md`.
+- [x] Run `uv run --group dev pytest` and note the result in the baseline. Open the M1 PR.
 
 ### M2 — Self-contained beginner notebooks (💡 accepted suggestion S7)
 - [ ] Audit: list every aiedge function each notebook and the solutions import. Mark each as inline, share or last-resort external. For code used in several notebooks, decide the single place it lives (inline in the first notebook that needs it, or one shared helper). Write the audit as a short table in DECISIONS.md, including the owner rule: inline first, no duplication, externals only as a last resort with clear inline comments.
@@ -25,3 +25,4 @@ Current milestone: M1
 
 ## Session log
 <!-- Newest first: YYYY-MM-DD — task — result — how verified — Qwen used? (y/n) -->
+2026-10-17 — M1 all tasks — runner + baseline.md written; all 6 notebooks and solutions run clean; pytest 1 passed/1 skipped (no g++) — ran each notebook via tools/run_notebook.py, reran 01/02 for stability, pytest — Qwen used? n
