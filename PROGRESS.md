@@ -14,7 +14,7 @@ Current milestone: M2
 
 ### M2 — Self-contained beginner notebooks (💡 accepted suggestion S7)
 - [x] Audit: list every aiedge function each notebook and the solutions import. Mark each as inline, share or last-resort external. For code used in several notebooks, decide the single place it lives (inline in the first notebook that needs it, or one shared helper). Write the audit as a short table in DECISIONS.md, including the owner rule: inline first, no duplication, externals only as a last resort with clear inline comments.
-- [ ] Data-and-first-model notebook: inline training, accuracy, seed and model definitions as short plain PyTorch cells. Add text cells explaining the loop and any quirks. If the data generator stays external, add an inline comment block above the import saying what it does, why it is external and how to read it. Run it end to end.
+- [x] Data-and-first-model notebook: inline training, accuracy, seed and model definitions as short plain PyTorch cells. Add text cells explaining the loop and any quirks. If the data generator stays external, add an inline comment block above the import saying what it does, why it is external and how to read it. Run it end to end.
 - [ ] Quantization notebook: inline scale, zero-point and int8 forward code in simple steps with a short explanation before each. Reuse code from earlier notebooks via the shared place decided in the audit, not copies. Run it and compare results with the M1 baseline.
 - [ ] Pruning notebook: inline magnitude and neuron pruning code with plain-language text cells. Run it and compare results.
 - [ ] Distillation notebook: inline the distillation loss and training. Add a text cell explaining temperature. Run it and compare results.
@@ -25,5 +25,6 @@ Current milestone: M2
 
 ## Session log
 <!-- Newest first: YYYY-MM-DD — task — result — how verified — Qwen used? (y/n) -->
+2026-10-17 — M2 notebook 01 inlined — set_seed, MLP, counters, accuracy, train (+augmentation), confusion matrix, history/example plots, mcu cost now inline with explanations; only the data generator stays external (comment block added) — ran via tools/run_notebook.py: 97.2% test acc, 17 mistakes, 21,509 params, identical to baseline — Qwen used? n
 2026-10-17 — M2 audit — table of aiedge usage and single home per function written as D3 — listed imports programmatically from all 7 notebooks — Qwen used? n
 2026-10-17 — M1 all tasks — runner + baseline.md written; all 6 notebooks and solutions run clean; pytest 1 passed/1 skipped (no g++) — ran each notebook via tools/run_notebook.py, reran 01/02 for stability, pytest — Qwen used? n
