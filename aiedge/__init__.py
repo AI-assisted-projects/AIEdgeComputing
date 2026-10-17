@@ -9,7 +9,6 @@ training      training loop (plain, distillation, pruning masks, QAT) and metric
 pruning       edge (weight) pruning and node (neuron) pruning
 quantization  int8 quantization: fake-quant for QAT and integer-only inference
 export        cost model for the microcontroller + C header generation
-plots         plotting helpers used by the notebooks
 board         talk to the Arduino over USB serial (record gestures, live predictions)
 """
 
