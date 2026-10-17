@@ -18,7 +18,7 @@ highest D<n> on main.
 | Function(s) | Used in | Home | Class |
 |---|---|---|---|
 | `config` (`C`: sizes, class names, `CYCLES_PER_MAC`) | 00, 01, 04, sol | constants inline in the first notebook that needs them (01); later notebooks re-define only the 1–2 they use, as plain variables | inline |
-| `set_seed`, `accuracy`, `predict_logits`, `train`, `confusion_matrix` | 01–05, sol | inline in 01 (training loop explained). Later notebooks reuse the model/trained weights saved by 01 and a short shared cell is NOT copied: `train` is saved as `models/helpers`-free plain code in 01 and re-imported via `%run`-free approach: see note | inline (01) + one shared helper (see note) |
+| `set_seed`, `accuracy`, `predict_logits`, `train`, `confusion_matrix` | 01–05, sol | inline in 01 (training loop explained); 02–05 and sol import them from the shared helper (see Shared-helper rule) | inline (01) + share |
 | `MLP`, `ConvNet`, `count_params`, `count_macs`, `count_macs_conv`, `count_nonzero_params` | 01–05, sol | `MLP`, `count_*` inline in 01; `ConvNet` inline in 04 (only teacher there; 05/sol reuse via shared helper) | inline / share |
 | `load_gesture_data`, `limit_training_data`, `GestureData` (generator + splits) | 01–05, sol | external last resort (long synthetic generator, ~300 lines, physics-like motion code that is not the learning goal). Keep as `aiedge.data` with an inline comment block above the import | last-resort external |
 | `magnitude_masks`, `sparsity_of`, `sparse_storage_bytes`, `neuron_importance`, `remove_neurons`, `prune_neurons` | 03, 05, sol | inline in 03; 05 and sol reuse `prune_neurons` via the shared helper | inline (03) + share |
