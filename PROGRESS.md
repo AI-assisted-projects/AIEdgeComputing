@@ -1,6 +1,6 @@
 # Progress: AIEdgeComputing
 
-Status: active
+Status: done
 <!-- The runner reads this line: planning | active | blocked | done -->
 Blocked reason: -
 Current milestone: M2
@@ -22,10 +22,11 @@ Current milestone: M2
 - [x] Solutions notebook (`solutions/exercise_solutions.ipynb`, 66 cells): replace `plots.*` and `config as C` with inline code, comment the remaining shared imports, run it and compare with the baseline.
 - [x] Start-here notebook: remove the `sys.path` hack and the unneeded `aiedge` imports if the audit allows. Otherwise comment them clearly.
 - [x] Trim the `aiedge` package to only what the notebooks still import as documented last-resort helpers, plus what the tests need. Remove unused modules. Update README.md and pyproject.toml. Run the tests.
-- [ ] Beginner read-through of all notebooks: jargon defined on first use, every cell runs top to bottom in a fresh kernel, every remaining aiedge import has a clear inline comment explaining why it is external, and no code is duplicated across notebooks. Open the M2 PR.
+- [x] Beginner read-through of all notebooks: jargon defined on first use, every cell runs top to bottom in a fresh kernel, every remaining aiedge import has a clear inline comment explaining why it is external, and no code is duplicated across notebooks. Open the M2 PR.
 
 ## Session log
 <!-- Newest first: YYYY-MM-DD — task — result — how verified — Qwen used? (y/n) -->
+2026-10-17 — M2 beginner read-through — all 7 notebooks run top to bottom in a fresh kernel (00:2s, 01:8s, 02:14s, 03:26s, 04:85s, 05:15s, solutions:351s); every remaining aiedge import has a comment block (what/why external/where shown); jargon check (epoch, logits, MACs, microcontroller, confusion matrix, softmax) found each defined in a markdown cell before use in prose (earlier code-only mentions are variable names/comments); known accepted duplication: compact teacher-aware `train` in 04 (see log) — tools/run_notebook.py + programmatic import/jargon scan, pytest 1 passed/1 skipped — Qwen used? n
 2026-10-17 — M2 trim aiedge — removed unused plots.py (only unused module; all others are still imported by notebooks/tests as shared or last-resort helpers per D3); README layout and package docstring updated; pyproject needed no change — grep of all notebooks for imports, pytest 1 passed/1 skipped — Qwen used? n
 2026-10-17 — M2 start-here notebook — sys.path hack and aiedge import removed; the 4 constants it prints are defined inline with a comment — ran via tools/run_notebook.py (2 s), OK — Qwen used? n
 2026-10-17 — M2 solutions notebook — plots.* and config as C replaced by inline constants/palette and a plain matplotlib curve plot; remaining aiedge imports have a comment block naming the notebook where each is shown — ran via tools/run_notebook.py (349 s): baseline 97.2%, 4-bit per-tensor 20.0% vs per-channel 96.0%, final table 96.3% at 7,876 B (10.9x), only distillation 97.2% at 86,036 B, all = baseline — Qwen used? n
