@@ -13,7 +13,8 @@ A real number ``r`` is represented by an integer ``q`` via
 * **Biases**: int32 with scale = input_scale * weight_scale, so they can be
   added straight into the integer accumulator.
 
-Integer-only inference of one layer (what the Arduino executes):
+int8 inference of one layer (what the Arduino executes): integer MACs, one float
+rescale per neuron:
 
     acc[j]  = bias_q[j] + sum_i  W_q[j, i] * (x_q[i] - x_zero_point)       (int32)
     y_q[j]  = clamp( round(acc[j] * M[j]) + y_zero_point, y_zero_point, 127 )
@@ -202,7 +203,7 @@ class QuantMLP(nn.Module):
 
 
 # ---------------------------------------------------------------------------
-# Integer-only inference in NumPy (bit-exact twin of the C++ code)
+# int8 inference in NumPy (bit-exact twin of the C++ code)
 # ---------------------------------------------------------------------------
 
 def _round_half_away(v: np.ndarray) -> np.ndarray:
