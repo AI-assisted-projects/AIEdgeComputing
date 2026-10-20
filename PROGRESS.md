@@ -29,7 +29,7 @@ Current milestone: M3
 - [x] Quantization notebook: add section 7 (variants table, dynamic range, float16, 16x8, partial quantization, integer I/O). Run it.
 - [x] Pruning notebook: add gradual schedule, layer sensitivity, zip, sparse timing, pruning + int8. Run it.
 - [x] Update README, run the tests.
-- [ ] Open the M3 PR (waiting for the owner's review).
+- [x] Open the M3 PR (#4).
 
 ## Session log
 <!-- Newest first: YYYY-MM-DD — task — result — how verified — Qwen used? (y/n) -->
