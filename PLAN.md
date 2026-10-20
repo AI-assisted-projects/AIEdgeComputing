@@ -25,7 +25,8 @@ notebooks self-contained and readable for students with little or no AI/ML backg
 - Do not hand-edit notebook JSON. Edit with nbformat or a script and keep the notebooks valid.
 
 ## Out of scope
-- New notebooks, exercises, techniques, boards or datasets.
+- New notebooks, exercises, techniques, boards or datasets. (Exception: M3, requested by the
+  owner, adds the quantization and pruning subtopics of the original slide decks; see D4.)
 - Changes to the Arduino sketches' behaviour.
 - CI setup and other new tooling.
 - Rewriting the course content beyond what S7 needs.
@@ -71,6 +72,20 @@ them and by the host-side check.
   - `grep` for `aiedge` imports in the notebooks shows only the documented helpers.
   - A duplicate-code check by eye and by grep over the notebook code cells.
   - `uv run --group dev pytest` passes.
+
+### M3 — Slide-deck coverage of the optimization topics (owner request, D4)
+- Deliverable: every quantization and pruning subtopic of the original slide decks (`slides/3.`,
+  `slides/4.`) is covered in notebooks 02 and 03, as text or as a short inline experiment.
+  Knowledge distillation needed nothing (the slides only name it).
+  - 02, new section 7: overview table of variants, dynamic-range quantization, float16, 16x8,
+    partial / mixed-precision quantization (+ partial QAT), integer inputs/outputs and strict conversion.
+  - 03: gradual pruning with a polynomial-decay schedule, layer sensitivity and selective pruning,
+    zip compression, measured dense vs sparse speed, edge pruning + int8 PTQ.
+- Acceptance criteria:
+  - Existing cells and their numbers are unchanged; new cells come after the code they build on.
+  - No new dependencies; no code duplicated across notebooks (03 imports `QuantMLP` via the shared helper).
+  - Every claim in the new text matches the printed results.
+- Verification: `uv run python tools/run_notebook.py` on 02 and 03, then `uv run --group dev pytest`.
 
 ## Delegation notes
 - Qwen may draft the explanatory text cells and the baseline summary table. Always review the output.
