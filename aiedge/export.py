@@ -4,6 +4,7 @@ generator of ``arduino/gesture_classifier/model_data.h``.
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import tempfile
@@ -182,12 +183,16 @@ def check_with_host_compiler(qmodel: QuantMLP, data, header: str | Path | None =
         return None
     header = Path(header or C.CLASSIFIER_SKETCH_DIR / "model_data.h")
     runner = C.ROOT / "tests" / "host_runner.cpp"
-    with tempfile.TemporaryDirectory() as tmp:
+    # Build inside the project, not in the system temp folder: many managed Windows PCs
+    # (AppLocker / antivirus rules) refuse to run programs from %TEMP% ("Access is denied").
+    build_dir = C.ROOT / "build"
+    build_dir.mkdir(exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=build_dir) as tmp:
         tmp = Path(tmp)
         # Copy both headers next to each other, so exactly this model_data.h is used.
         shutil.copy(C.CLASSIFIER_SKETCH_DIR / "edge_nn.h", tmp / "edge_nn.h")
         shutil.copy(header, tmp / "model_data.h")
-        exe = tmp / "runner"
+        exe = tmp / ("runner.exe" if os.name == "nt" else "runner")
         subprocess.run(["g++", "-O2", "-std=c++14", "-I", str(tmp), str(runner), "-o", str(exe)],
                        check=True)
         raw = data.raw_test.astype(np.float32)

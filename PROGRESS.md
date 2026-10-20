@@ -3,7 +3,7 @@
 Status: done
 <!-- The runner reads this line: planning | active | blocked | done -->
 Blocked reason: -
-Current milestone: M2
+Current milestone: M3
 
 ## Tasks
 
@@ -24,8 +24,19 @@ Current milestone: M2
 - [x] Trim the `aiedge` package to only what the notebooks still import as documented last-resort helpers, plus what the tests need. Remove unused modules. Update README.md and pyproject.toml. Run the tests.
 - [x] Beginner read-through of all notebooks: jargon defined on first use, every cell runs top to bottom in a fresh kernel, every remaining aiedge import has a clear inline comment explaining why it is external, and no code is duplicated across notebooks. Open the M2 PR.
 
+### M3 — Slide-deck coverage of the optimization topics (D4)
+- [x] Compare the slide decks with the notebooks; list the quantization/pruning subtopics that are missing.
+- [x] Quantization notebook: add section 7 (variants table, dynamic range, float16, 16x8, partial quantization, integer I/O). Run it.
+- [x] Pruning notebook: add gradual schedule, layer sensitivity, zip, sparse timing, pruning + int8. Run it.
+- [x] Update README, run the tests.
+- [x] Open the M3 PR (#4).
+
 ## Session log
 <!-- Newest first: YYYY-MM-DD — task — result — how verified — Qwen used? (y/n) -->
+2026-10-20 — M3 review follow-up (D5) — "integer-only" for our engine renamed to "int8 inference" in 02 (cells 14, 20, 22–24), 05 (two labels), README and aiedge docstrings; section 7 caveat shortened to refer to section 5; wording only, numbers unchanged (int8 97.0%, 05: QAT 96.5%, C++ 600/600 bit-identical) — tools/run_notebook.py on 02, 03, 05 (Linux), pytest 2 passed — Qwen used? n
+2026-10-20 — M3 review fixes (PR #4, D5) — notebook 02 section 7: our engine described as integer MACs with float rescaling, integer rescaling added to 7e and the summary, overflow text corrected, 16x8 simulated with symmetric int16 activations (`QuantMLP16x8`): int8 97.0% / int16 97.2%, largest integer bias 428,959 (int32 limit 2.1e9); older cells unchanged — tools/run_notebook.py on 02 (Linux, 14 s; numbers differ from the Windows run above by platform), pytest 2 passed — Qwen used? n
+2026-10-20 — M3 host C++ check on Windows — `check_with_host_compiler` failed with "Access is denied": this PC blocks running programs from %TEMP%. It now builds in a temp folder under `build/` (git-ignored) and names the program `runner.exe` on Windows — pytest 2 passed (C++ test ran for the first time, g++ 15.2 MSYS2), notebook 05: 600/600 bit-identical, model_data.h restored — Qwen used? n
+2026-10-20 — M3 slide coverage — 02: dynamic range 96.0%, float16 96.2% (42 KB), 16x8 = int8 96.0%, 2-bit one layer at a time 82.5/94.3/95.5% (all 76.2%); 03: gradual to 98% 90.3% vs one-shot+FT 83.3%, output layer most sensitive (20.0% at 95%), zip 3.9 KB vs CSR 6.6 KB at 90%, CSR slower than dense for our net at every sparsity (big layer: faster from ~90%), 90% pruned + int8 PTQ 96.7% with zeros kept; existing numbers unchanged — tools/run_notebook.py (02: 17 s, 03: 38 s), pytest — Qwen used? n
 2026-10-17 — M2 beginner read-through — all 7 notebooks run top to bottom in a fresh kernel (00:2s, 01:8s, 02:14s, 03:26s, 04:85s, 05:15s, solutions:351s); every remaining aiedge import has a comment block (what/why external/where shown); jargon check (epoch, logits, MACs, microcontroller, confusion matrix, softmax) found each defined in a markdown cell before use in prose (earlier code-only mentions are variable names/comments); known accepted duplication: compact teacher-aware `train` in 04 (see log) — tools/run_notebook.py + programmatic import/jargon scan, pytest 1 passed/1 skipped — Qwen used? n
 2026-10-17 — M2 trim aiedge — removed unused plots.py (only unused module; all others are still imported by notebooks/tests as shared or last-resort helpers per D3); README layout and package docstring updated; pyproject needed no change — grep of all notebooks for imports, pytest 1 passed/1 skipped — Qwen used? n
 2026-10-17 — M2 start-here notebook — sys.path hack and aiedge import removed; the 4 constants it prints are defined inline with a comment — ran via tools/run_notebook.py (2 s), OK — Qwen used? n

@@ -11,7 +11,7 @@ Sense** (nRF52840, Arm Cortex-M4F @ 64 MHz, 1 MB flash, 256 KB RAM).
 
 Students only need a very basic AI/ML background: every concept is explained
 in the notebooks, and the important code (quantization formulas, pruning
-surgery, the distillation loss, the integer-only inference engine) is written
+surgery, the distillation loss, the int8 inference engine) is written
 out rather than hidden in a framework.
 
 ## The notebooks
@@ -20,8 +20,8 @@ out rather than hidden in a framework.
 |---|---|---|---|
 | 00 | `start_here` | Edge AI, the board, the project, set-up check | no |
 | 01 | `data_and_first_model` | IMU data, neural-network basics, training the baseline, MCU cost; optional: record your own gestures | optional |
-| 02 | `quantization` | Number formats, $r = s(q-z)$, per-channel weights, calibration, integer-only inference, QAT and the straight-through estimator | no |
-| 03 | `pruning` | Magnitude (edge) pruning, masks and fine-tuning, sparse storage, node pruning and network surgery, comparison with training from scratch | no |
+| 02 | `quantization` | Number formats, $r = s(q-z)$, per-channel weights, calibration, int8 inference, QAT and the straight-through estimator; other flavours: dynamic range, float16, 16x8, partial quantization, integer inputs/outputs | no |
+| 03 | `pruning` | Magnitude (edge) pruning, masks and fine-tuning, gradual pruning schedules, layer sensitivity and selective pruning, sparse storage, zip compression, measured sparse speed, node pruning and network surgery, comparison with training from scratch, pruning + int8 | no |
 | 04 | `distillation` | Teacher/student, temperature, KD loss, when distillation helps (plenty vs little data) | no |
 | 05 | `deploy_to_arduino` | Distill → prune → quantize pipeline, C++ export, host-side bit-exact check, upload, measurements on the board | **yes** |
 
