@@ -20,7 +20,7 @@ out rather than hidden in a framework.
 |---|---|---|---|
 | 00 | `start_here` | Edge AI, the board, the project, set-up check | no |
 | 01 | `data_and_first_model` | IMU data, neural-network basics, training the baseline, MCU cost; optional: record your own gestures | optional |
-| 02 | `quantization` | Number formats, $r = s(q-z)$, per-channel weights, calibration, int8 inference, QAT and the straight-through estimator; other flavours: dynamic range, float16, 16x8, partial quantization, integer inputs/outputs | no |
+| 02 | `quantization` | Number formats, $r = s(q-z)$, per-channel weights, calibration, int8 inference, QAT and the straight-through estimator; a short overview of other variants: dynamic range, float16, 16x8, mixed precision, integer-only | no |
 | 03 | `pruning` | Magnitude (edge) pruning, masks and fine-tuning, gradual pruning schedules, layer sensitivity and selective pruning, sparse storage, zip compression, measured sparse speed, node pruning and network surgery, comparison with training from scratch, pruning + int8 | no |
 | 04 | `distillation` | Teacher/student, temperature, KD loss, when distillation helps (plenty vs little data) | no |
 | 05 | `deploy_to_arduino` | Distill → prune → quantize pipeline, C++ export, host-side bit-exact check, upload, measurements on the board | **yes** |
